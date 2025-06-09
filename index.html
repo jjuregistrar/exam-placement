@@ -1,36 +1,97 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JJU Exit Exam Placement Announcement</title>
   <style>
-    body { font-family: Arial; display: flex; justify-content: center; margin-top: 50px; }
-    .card { border: 1px solid #ddd; padding: 20px; width: 400px; border-radius: 10px; box-shadow: 2px 2px 10px #ccc; }
-    h2 { color: blue; margin-bottom: 0; }
-    .green { color: green; font-weight: bold; }
-    .pink { color: deeppink; font-weight: bold; }
-    .red { color: red; font-weight: bold; }
-    .field-label { font-weight: bold; }
-    input[type="text"] { width: 100%; padding: 8px; margin: 10px 0; }
-    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8f8f8;
+    }
+
+    .card {
+      background: white;
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    h2 {
+      text-align: center;
+      color: blue;
+      margin-bottom: 5px;
+    }
+
+    .green {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .pink {
+      text-align: center;
+      color: deeppink;
+      font-weight: bold;
+    }
+
+    .field-label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .red {
+      color: red;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/en/6/64/Jigjiga_University_logo.png" width="80" style="display:block; margin:auto;">
-    <h2 style="text-align:center;">Jigjiga University</h2>
-    <p class="green" style="text-align:center;">Registrar and Alumni Directorate</p>
-    <p class="pink" style="text-align:center;">Sene 2-10, 2017 E. C.<br>Exit Exam Placement Announcement</p>
-    
-    <input type="text" id="usernameInput" placeholder="Enter username (e.g., amba073629)">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/64/Jigjiga_University_logo.png" width="80" />
+    <h2>Jigjiga University</h2>
+    <p class="green">Registrar and Alumni Directorate</p>
+    <p class="pink">Sene 2–10, 2017 E.C.<br />Exit Exam Placement Announcement</p>
+
+    <input type="text" id="usernameInput" placeholder="Enter username (e.g., amba073629)" />
     <button onclick="searchStudent()">Search</button>
 
-    <div id="result" style="margin-top:20px;"></div>
+    <div id="result"></div>
   </div>
 
   <script>
-    const csvUrl = 'https://raw.githubusercontent.com/jjuregistrar/exam-placement/refs/heads/main/data.csv'; // Use local file path when hosted on GitHub Pages
+    const csvUrl = 'https://raw.githubusercontent.com/jjuregistrar/exam-placement/main/data.csv'; // ✅ Replace if needed
     let students = [];
 
     fetch(csvUrl)
@@ -50,7 +111,6 @@
 
       if (student) {
         resultDiv.innerHTML = `
-          <p><span class="field-label">Data Found:</span></p>
           <p><span class="field-label">Student Name:</span> ${student.name}</p>
           <p><span class="field-label">Username:</span> ${student.username}</p>
           <p><span class="field-label">Password:</span> ${student.password}</p>
@@ -58,6 +118,7 @@
           <p><span class="field-label">Exam Building:</span> ${student.building}</p>
           <p><span class="field-label">Exam Room:</span> ${student.room}</p>
           <p class="red"><span class="field-label">Exam Time:</span> ${student.time}</p>
+          <p><span class="field-label">Department:</span> ${student.dept}</p>
         `;
       } else {
         resultDiv.innerHTML = `<p class="red">No student found with that username.</p>`;
