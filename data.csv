@@ -1,0 +1,4 @@
+sno,username,student name,password,exam date,exam building,exam room,exam time,departments
+1,amba073629,SHITO MOHAMMED HASSEN,pass123,27-May,CB-19,3,Afternoon (9:00-12:00 LT),Business
+2,amba073630,HANA ABDI,pass456,27-May,CB-19,4,Afternoon (9:00-12:00 LT),Economics
+3,amba073631,ALI OSMAN,pass789,28-May,CB-21,1,Forenoon (2:00-5:00 LT),Accounting

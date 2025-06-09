@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JJU Exit Exam Placement Announcement</title>
+  <style>
+    body { font-family: Arial; display: flex; justify-content: center; margin-top: 50px; }
+    .card { border: 1px solid #ddd; padding: 20px; width: 400px; border-radius: 10px; box-shadow: 2px 2px 10px #ccc; }
+    h2 { color: blue; margin-bottom: 0; }
+    .green { color: green; font-weight: bold; }
+    .pink { color: deeppink; font-weight: bold; }
+    .red { color: red; font-weight: bold; }
+    .field-label { font-weight: bold; }
+    input[type="text"] { width: 100%; padding: 8px; margin: 10px 0; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/64/Jigjiga_University_logo.png" width="80" style="display:block; margin:auto;">
+    <h2 style="text-align:center;">Jigjiga University</h2>
+    <p class="green" style="text-align:center;">Registrar and Alumni Directorate</p>
+    <p class="pink" style="text-align:center;">Sene 2-10, 2017 E. C.<br>Exit Exam Placement Announcement</p>
+    
+    <input type="text" id="usernameInput" placeholder="Enter username (e.g., amba073629)">
+    <button onclick="searchStudent()">Search</button>
+
+    <div id="result" style="margin-top:20px;"></div>
+  </div>
+
+  <script>
+    const csvUrl = 'data.csv'; // Use local file path when hosted on GitHub Pages
+    let students = [];
+
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(text => {
+        const lines = text.trim().split('\n');
+        for (let i = 1; i < lines.length; i++) {
+          const [sno, username, name, password, examDate, building, room, time, dept] = lines[i].split(',');
+          students.push({ sno, username, name, password, examDate, building, room, time, dept });
+        }
+      });
+
+    function searchStudent() {
+      const input = document.getElementById('usernameInput').value.trim().toLowerCase();
+      const resultDiv = document.getElementById('result');
+      const student = students.find(s => s.username.toLowerCase() === input);
+
+      if (student) {
+        resultDiv.innerHTML = `
+          <p><span class="field-label">Data Found:</span></p>
+          <p><span class="field-label">Student Name:</span> ${student.name}</p>
+          <p><span class="field-label">Username:</span> ${student.username}</p>
+          <p><span class="field-label">Password:</span> ${student.password}</p>
+          <p><span class="field-label">Exam Date:</span> ${student.examDate}</p>
+          <p><span class="field-label">Exam Building:</span> ${student.building}</p>
+          <p><span class="field-label">Exam Room:</span> ${student.room}</p>
+          <p class="red"><span class="field-label">Exam Time:</span> ${student.time}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = `<p class="red">No student found with that username.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
